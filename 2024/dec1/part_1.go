@@ -5,7 +5,7 @@ import (
 	"sort"
 )
 
-func Distance_sum(team_a []int, team_b []int) int {
+func DistanceSum(team_a []int, team_b []int) int {
 	sort.Ints(team_a)
 	sort.Ints(team_b)
 
