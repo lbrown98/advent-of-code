@@ -1,9 +1,9 @@
 package main
 
-import "github.com/lbrown98/advent-of-code/2024/dec1"
+import "advent-of-code/dec1"
 
 func main() {
-	ans := dec1.distance_sum(team_a, team_b)
+	ans := dec1.Distance_sum(team_a, team_b)
 	println(ans)
 }
 

@@ -1,4 +1,3 @@
-module github.com/lbrown98/advent-of-code
+module advent-of-code
 
-go 1.22.6
-
+go 1.23.3
