@@ -4,10 +4,19 @@ import (
 	"fmt"
 
 	"github.com/lbrown98/advent-of-code/2024/dec1"
+	"github.com/lbrown98/advent-of-code/2024/dec2"
 )
 
 func main() {
-	day1()
+	day2()
+}
+
+func day2() {
+	safeReports := dec2.SafeReports(levels)
+	fmt.Println("safe reports: ", safeReports)
+
+	// dampenedSafeReports := dec2.Dampener(levels)
+	// fmt.Println("dampened safe reports: ", dampenedSafeReports)
 }
 
 func day1() {
