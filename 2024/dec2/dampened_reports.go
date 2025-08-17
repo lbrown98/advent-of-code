@@ -1,52 +1,66 @@
 package dec2
 
-import (
-	"math"
-)
+import "math"
 
-func Dampener(reports [][]int) int {
-	safeReports := 0
+func checkSafeDampened(report []int, removed bool) int {
+	direction := Ascending
 
-	for _, report := range reports {
-		safe := false
-
-		direction := checkDirection(report[0], report[1])
-		if direction != Unsafe {
-			safe = assessReportsWithDampener(report, direction)
-		}
-
-		if safe {
-			safeReports = safeReports + 1
-		}
-	}
-
-	return safeReports
-}
-
-func assessReportsWithDampener(report []int, direction Direction) bool {
-	prev := -1
-	dampenerUsed := false
-
-	for i, level := range report {
-		if prev == -1 {
-			prev = level
-		} else {
-			change := float64(level-prev)
-			if (math.Abs(change) > 3 || math.Abs(change) < 1) || (change > 0 && direction == Descending) ||
-				(change < 0 && direction == Ascending) {
-				if dampenerUsed {
-					return false
-				}
-				dampenerUsed = true
-				if i == 1 {
-					direction = checkDirection(prev, report[2])
-				}
-			} else {
-				prev = level
+	if report[0]-report[1] > 0 {
+		direction = Descending
+	} else if report[0]-report[1] == 0 {
+		if !removed {
+			if checkSafeDampened(removeIndex(report, 0), true)+
+				checkSafeDampened(removeIndex(report, 1), true) >= 1 {
+				return 1
 			}
 		}
-
+		return 0
 	}
 
-	return true
+	for i := range report[:len(report)-1] {
+		if direction == Ascending {
+			if report[i]-report[i+1] >= 0 {
+				if !removed {
+					if checkSafeDampened(removeIndex(report, i), true)+
+						checkSafeDampened(removeIndex(report, i+1), true) >= 1 {
+						return 1
+					}
+				}
+				return 0
+			}
+		} else {
+			if report[i]-report[i+1] <= 0 {
+				if !removed {
+					if checkSafeDampened(removeIndex(report, i), true)+
+						checkSafeDampened(removeIndex(report, i+1), true) >= 1 {
+						return 1
+					}
+				}
+				return 0
+			}
+		}
+		if math.Abs(float64(report[i]-report[i+1])) > 3 {
+			if !removed {
+				if checkSafeDampened(removeIndex(report, i), true)+
+					checkSafeDampened(removeIndex(report, i+1), true) >= 1 {
+					return 1
+				}
+			}
+			return 0
+		}
+	}
+
+	return 1
+}
+
+func removeIndex(report []int, indexToRemove int) []int {
+	reportModified := make([]int, len(report))
+	copy(reportModified, report)
+
+	if indexToRemove == len(report)-1 {
+		reportModified = reportModified[:len(report)-1]
+	} else if indexToRemove >= 0 && indexToRemove < len(report)-1 {
+		reportModified = append(reportModified[:indexToRemove], reportModified[indexToRemove+1:]...)
+	}
+	return reportModified
 }

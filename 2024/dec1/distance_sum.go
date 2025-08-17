@@ -12,8 +12,8 @@ func DistanceSum(team_a []int, team_b []int) int {
 	sum := 0.0
 
 	for i := range team_a {
-		add := math.Abs(float64(team_a[i] - team_b[i]))
-		sum = sum + add
+		difference := math.Abs(float64(team_a[i] - team_b[i]))
+		sum += difference
 	}
 
 	return int(sum)
