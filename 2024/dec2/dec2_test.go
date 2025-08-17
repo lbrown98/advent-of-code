@@ -3,7 +3,7 @@ package dec2
 import (
 	"slices"
 	"testing"
-	// "github.com/lbrown98/advent-of-code/2024/config"
+	"github.com/lbrown98/advent-of-code/2024/config"
 )
 
 func Test_SafeReports(t *testing.T) {
@@ -56,14 +56,15 @@ func Test_Dampener(t *testing.T) {
 				{1, 4, 4, 5, 6}, //safe
 				{1, 3, 7, 6, 6}, //unsafe
 				{1, 3, 7, 5, 6}, //safe
+				{71, 69, 70, 71, 72, 75}, //safe
 			},
-			want: 7,
+			want: 8,
 		},
-		// {
-		// 	name: "real examples",
-		// 	reports: config.Levels,
-		// 	want:,
-		// },
+		{
+			name: "real examples",
+			reports: config.Levels,
+			want:381,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

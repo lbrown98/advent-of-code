@@ -21,6 +21,9 @@ func checkSafeDampened(report []int, removed bool) int {
 		if direction == Ascending {
 			if report[i]-report[i+1] >= 0 {
 				if !removed {
+					if checkIfRemovingIndexZeroWorks(report) == 1 {
+						return 1
+					}
 					if checkSafeDampened(removeIndex(report, i), true)+
 						checkSafeDampened(removeIndex(report, i+1), true) >= 1 {
 						return 1
@@ -31,6 +34,9 @@ func checkSafeDampened(report []int, removed bool) int {
 		} else {
 			if report[i]-report[i+1] <= 0 {
 				if !removed {
+					if checkIfRemovingIndexZeroWorks(report) == 1 {
+						return 1
+					}
 					if checkSafeDampened(removeIndex(report, i), true)+
 						checkSafeDampened(removeIndex(report, i+1), true) >= 1 {
 						return 1
@@ -41,6 +47,9 @@ func checkSafeDampened(report []int, removed bool) int {
 		}
 		if math.Abs(float64(report[i]-report[i+1])) > 3 {
 			if !removed {
+				if checkIfRemovingIndexZeroWorks(report) == 1 {
+					return 1
+				}
 				if checkSafeDampened(removeIndex(report, i), true)+
 					checkSafeDampened(removeIndex(report, i+1), true) >= 1 {
 					return 1
@@ -63,4 +72,8 @@ func removeIndex(report []int, indexToRemove int) []int {
 		reportModified = append(reportModified[:indexToRemove], reportModified[indexToRemove+1:]...)
 	}
 	return reportModified
+}
+
+func checkIfRemovingIndexZeroWorks(report []int) int {
+	return checkSafe(removeIndex(report, 0))
 }
