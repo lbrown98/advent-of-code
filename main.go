@@ -4,12 +4,18 @@ import (
 	"fmt"
 	"github.com/lbrown98/advent-of-code/2024/dec1"
 	"github.com/lbrown98/advent-of-code/2024/dec2"
-	"github.com/lbrown98/advent-of-code/2024/dec3"
+	"github.com/lbrown98/advent-of-code/2024/dec3"	
+	"github.com/lbrown98/advent-of-code/2024/dec4"
 	"github.com/lbrown98/advent-of-code/2024/config"
 )
 
 func main() {
-	day3()
+	day4()
+}
+
+func day4() {
+	totalXmas := dec4.WordSearch(config.WordSearch)
+	fmt.Println("total: ", totalXmas)
 }
 
 func day3() {
